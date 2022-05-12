@@ -32,6 +32,7 @@ ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", default="").split(" ")
 # Application definition
 
 INSTALLED_APPS = [
+    'searches.apps.SearchesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
