@@ -4,13 +4,25 @@ services:
 
   app:
     build: ./app
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
     env_file:
       - ./.env.dev
     depends_on:
       - db
+      - redis
+
+  search-worker:
+    build: ./app
+    command: celery --app seqsleuth worker -l info
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+      - redis
 
   db:
     image: postgres:14-alpine
@@ -20,6 +32,9 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=app
+
+  redis:
+    image: redis:7-alpine
 
 volumes:
   postgres_data:

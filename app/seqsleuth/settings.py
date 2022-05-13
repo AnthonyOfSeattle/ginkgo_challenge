@@ -34,6 +34,7 @@ ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", default="*").split(" ")
 INSTALLED_APPS = [
     'searches.apps.SearchesConfig',
     'rest_framework',
+    'django_celery_results',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -130,3 +131,10 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Celery
+CELERY_BROKER_URL = environ.get('CELERY_BROKER')
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
