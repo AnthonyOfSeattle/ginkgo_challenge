@@ -20,7 +20,10 @@ class SearchInput extends Component {
   };
 
   handleSubmit(e) {
-    this.postSearch();
+    if (this.state.sequence.length > 0) {
+      this.postSearch();
+    };
+    this.setState({ sequence: '' });
     e.preventDefault();
   };
 

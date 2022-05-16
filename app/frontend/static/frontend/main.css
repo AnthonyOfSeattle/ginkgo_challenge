@@ -1,0 +1,45 @@
+.search-history ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.search-history ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.search-detail {
+  border-style: solid;
+  margin-bottom: 5px;
+}
+
+.search-detail .search-meta {
+  border-style: solid;
+}
+
+.search-detail .search-status {
+  border-style: solid;
+}
+
+.search-detail .search-status-pending {
+  background-color: #e2e3e5;
+}
+
+.search-detail .search-status-running {
+  background-color: #cfe2ff;
+}
+
+.search-detail .search-status-complete {
+  background-color: #d1e7dd;
+}
+
+.search-detail .search-status-error {
+  background-color: #f8d7da;
+}
+
+.search-detail .search-results {
+  border-style: solid;
+}
+
