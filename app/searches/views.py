@@ -12,7 +12,7 @@ class SearchList(APIView):
 
     def get(self, request, format=None):
         """Get list of searches"""
-        searches = Search.objects.all()
+        searches = Search.objects.all().order_by('-id').prefetch_related('results')
         serializer = SearchSerializer(searches, many=True)
         return Response(serializer.data)
 
@@ -56,19 +56,3 @@ class SearchDetail(APIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-class SearchResultDetail(APIView):
-    """Retrieve results"""
-
-    def get_object(self, pk):
-        """Use search primary key to look up result"""
-        try:
-            return Result.objects.get(search__pk=pk)
-        except Result.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        """Return single result by search id"""
-        result = self.get_object(pk)
-        serializer = ResultSerializer(result)
-        return Response(serializer.data)

@@ -45,7 +45,9 @@ class Search(models.Model):
 class Result(models.Model):
     """Model to store search results"""
 
-    search = models.ForeignKey(Search, on_delete=models.CASCADE)
+    search = models.ForeignKey(Search,
+                               related_name='results',
+                               on_delete=models.CASCADE)
     genome = models.CharField(max_length=10)
     protein = models.CharField(max_length=10)
     start = models.IntegerField(default=-1)

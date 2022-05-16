@@ -3,12 +3,21 @@ from rest_framework import serializers
 from searches.models import Search, Result
 
 
+class ResultSerializer(serializers.ModelSerializer):
+    """Serializer for Result object"""
+
+    class Meta:
+        model = Result
+        fields = ['genome', 'protein', 'start', 'end']
+
+
 class SearchSerializer(serializers.ModelSerializer):
     """Serializer for Search object which only allows specifying the sequence"""
+    results = ResultSerializer(read_only=True, many=True)
 
     class Meta:
         model = Search
-        fields = ['id', 'sequence', 'status', 'started', 'finished']
+        fields = ['id', 'sequence', 'status', 'started', 'finished', 'results']
         read_only_fields = ['status', 'started', 'finished']
 
     def validate(self, data):
@@ -18,11 +27,3 @@ class SearchSerializer(serializers.ModelSerializer):
                       "sequence" : "sequence must contain only nucleic acids: ATCG"
                   })
         return data
-
-
-class ResultSerializer(serializers.ModelSerializer):
-    """Serializer for Result object"""
-
-    class Meta:
-        model = Result
-        fields = ['id', 'search', 'genome', 'protein', 'start', 'end']

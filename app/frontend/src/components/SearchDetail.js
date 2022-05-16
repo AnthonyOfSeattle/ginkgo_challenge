@@ -25,6 +25,67 @@ class SearchDetail extends Component {
     return this.statusClasses[this.props.search.status];
   };
 
+  getSearchRuntime() {
+    var started = new Date(this.props.search.started);
+    var finished = new Date(Date.now());
+    if (this.getFullStatus() == 'COMPLETE') {
+      var finished = new Date(this.props.search.finished);
+    };
+
+    var runtime = (finished - started)/1000;
+
+    return runtime.toFixed(2);
+  }
+
+  renderSearchResults() {
+    if (this.getFullStatus() != 'COMPLETE') {
+      return (
+        <Col md={6} className='search-results' />
+      );
+    };
+
+    var result = this.props.search.results[0];
+    return (
+      <Col md={6} className='search-results'>
+        <Row className='search-results-header'>
+	  <p>Results</p>
+	</Row>
+	<Row className='search-results-value'>
+          <Col md={4}>
+            <p>Genome:</p>
+	  </Col>
+	  <Col md={8}>
+            <p>{result.genome}</p>
+          </Col>
+	</Row>
+	<Row className='search-results-value'>
+          <Col md={4}>
+            <p>Protein:</p>
+          </Col>
+          <Col md={8}>
+            <p>{result.protein}</p>
+          </Col>
+        </Row>
+	<Row className='search-results-value'>
+          <Col md={4}>
+            <p>Range:</p>
+          </Col>
+          <Col md={8}>
+            <p>{result.start} - {result.end}</p>
+          </Col>
+        </Row>
+	<Row className='search-results-value'>
+          <Col md={4}>
+            <p>Runtime:</p>
+          </Col>
+          <Col md={8}>
+            <p>{this.getSearchRuntime()} seconds</p>
+          </Col>
+        </Row>
+      </Col>
+    );
+  }
+
   render() {
     return (
       <Row className='search-detail'>
@@ -41,11 +102,7 @@ class SearchDetail extends Component {
 	    <p>{this.props.search.sequence}</p>
 	  </Row>
 	</Col>
-	<Col md={6} className='search-results'>
-          <Row className='search-results-header'>
-            Results
-	  </Row>
-	</Col>
+	{this.renderSearchResults()}
       </Row>
     );
   };
