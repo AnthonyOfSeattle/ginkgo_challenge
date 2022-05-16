@@ -33,6 +33,7 @@ ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", default="*").split(" ")
 
 INSTALLED_APPS = [
     'searches.apps.SearchesConfig',
+    'frontend',
     'rest_framework',
     'django_celery_results',
     'django.contrib.admin',
