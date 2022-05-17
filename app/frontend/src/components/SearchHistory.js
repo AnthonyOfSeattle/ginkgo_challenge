@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import SearchDetail from './SearchDetail';
+import Table from 'react-bootstrap/Table'
+import SearchRow from './SearchRow';
 
 class SearchHistory extends Component {
   constructor(props) {
@@ -42,24 +43,43 @@ class SearchHistory extends Component {
       });
   };
 
+  getTableHeader() {
+    return (
+      <thead>
+        <tr>
+	  <th>Status</th>
+	  <th>Runtime</th>
+          <th>Sequence</th>
+          <th>Genome</th>
+          <th>Protein</th>
+	  <th>Start</th>
+	  <th>End</th>
+        </tr>
+      </thead>
+    );
+  };
+
   render() {
-    const searches = this.state.searches.map(search => {
+    const search_rows = this.state.searches.map(search => {
       return (
-        <li key={search.id}>
-          <SearchDetail search={search}/>
-        </li>
+        <SearchRow search={search}/>
       );
     });
 
-    return (
-      <Row className="search-history justify-content-md-center">
-        <Col md={8}>
-          <ul>
-            {searches}
-          </ul>
-        </Col>
-      </Row>
-    );
+    if (search_rows.length > 0) {
+      return (
+        <Row className="search-history justify-content-md-center">
+	  <Col md={9}>
+            <Table responsive bordered hover>
+	      {this.getTableHeader()}
+	      <tbody>
+	        {search_rows}
+	      </tbody>
+	    </Table>
+	  </Col>
+        </Row>
+      );
+    };
   };
 };
 

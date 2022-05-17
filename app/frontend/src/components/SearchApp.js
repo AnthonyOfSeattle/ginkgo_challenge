@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
 import SearchHistory from './SearchHistory';
 import SearchInput from './SearchInput';
 
 class SearchApp extends Component {
   render() {
     return (
-      <Row className="search-app">
+      <Container className="search-app">
 	<SearchInput />
         <SearchHistory />
-      </Row>
+      </Container>
     );
   };
 };
