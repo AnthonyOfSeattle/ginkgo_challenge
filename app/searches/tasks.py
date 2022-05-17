@@ -1,14 +1,11 @@
 from celery import shared_task
 from searches.models import Search, Result
+from genomes.records import GenomeBank
 from django.utils import timezone
-
-# Imports for early testing
-import random
-import time
 
 
 @shared_task
-def search_genomes(pk, sequence):
+def run_search(pk, sequence):
     """Search genomes for sequence and associate result with primary key"""
 
     # Update search
@@ -18,12 +15,7 @@ def search_genomes(pk, sequence):
 
     # Simulated search process
     try:
-        # Simulate error
-        if random.randrange(1, 100) <= 10:
-            raise ValueError
-        
-        # Simulate long search
-        time.sleep(random.randrange(1, 30))
+        result_dict = GenomeBank().query_genomes(search.sequence)
         search.status = Search.COMPLETE
 
     except:
@@ -31,11 +23,9 @@ def search_genomes(pk, sequence):
 
     # Create and save result if successful
     if search.status == Search.COMPLETE:
+        print(result_dict)
         result = Result(search=search,
-                        genome='GENOME',
-                        protein='PROTEIN',
-                        start=0,
-                        end=0)
+                        **result_dict)
         result.save()
 
     # Update search

@@ -5,12 +5,15 @@ services:
   app:
     build: ./app
     command: >
-      sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+      sh -c 'python build.py &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000'
     ports:
       - 8000:8000
     env_file:
       - ./.env.dev
+    volumes:
+      - genome_data:/usr/data/
     depends_on:
       - db
       - redis
@@ -20,6 +23,8 @@ services:
     command: celery --app seqsleuth worker -l info
     env_file:
       - ./.env.dev
+    volumes:
+      - genome_data:/usr/data/
     depends_on:
       - db
       - redis
@@ -38,4 +43,4 @@ services:
 
 volumes:
   postgres_data:
-    
+  genome_data:

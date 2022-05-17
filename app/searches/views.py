@@ -1,6 +1,6 @@
 from searches.models import Search, Result
 from searches.serializers import SearchSerializer, ResultSerializer
-from searches.tasks import search_genomes
+from searches.tasks import run_search
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -21,7 +21,7 @@ class SearchList(APIView):
         serializer = SearchSerializer(data=request.data)
         if serializer.is_valid():
             search = serializer.save()
-            search_genomes.delay(search.id, search.sequence)
+            run_search.delay(search.id, search.sequence)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 

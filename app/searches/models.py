@@ -48,8 +48,8 @@ class Result(models.Model):
     search = models.ForeignKey(Search,
                                related_name='results',
                                on_delete=models.CASCADE)
-    genome = models.CharField(max_length=10)
-    protein = models.CharField(max_length=10)
+    genome = models.CharField(max_length=9)
+    protein = models.CharField(max_length=15)
     start = models.IntegerField(default=-1)
     end = models.IntegerField(default=-1)
 

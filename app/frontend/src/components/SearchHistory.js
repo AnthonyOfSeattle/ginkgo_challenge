@@ -15,7 +15,7 @@ class SearchHistory extends Component {
     this.fetchSearches();
     this.timerID = setInterval(
       () => this.fetchSearches(),
-      5000
+      1000
     );
   };
 
@@ -64,3 +64,4 @@ class SearchHistory extends Component {
 };
 
 export default SearchHistory;
+
