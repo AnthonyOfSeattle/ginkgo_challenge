@@ -9,11 +9,6 @@ function Banner() {
     <Navbar bg='primary' variant='dark'>
       <Container>
         <Navbar.Brand>Seqsleuth</Navbar.Brand>
-	<Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Signed in as: <strong>Admin</strong>
-          </Navbar.Text>
-        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
