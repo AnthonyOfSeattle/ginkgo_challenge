@@ -1,11 +1,15 @@
 from django.db import models
-
+from django.contrib.sessions.models import Session
 
 class Search(models.Model):
     """Model to store information about submitted searches"""
 
-    # User input
+    # User info
     sequence = models.CharField(max_length=200)
+    session = models.ForeignKey(Session,
+                                related_name='searches',
+                                on_delete=models.CASCADE)
+
 
     # Job runtime metadata
     SUBMITTED = 'S'
