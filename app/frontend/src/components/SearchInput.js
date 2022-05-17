@@ -28,7 +28,7 @@ class SearchInput extends Component {
   };
 
   postSearch() {
-    fetch("searches/", {
+    fetch("/searches/", {
       method: "POST",
       headers: {'Content-Type': 'application/json'}, 
       body: JSON.stringify(this.state)

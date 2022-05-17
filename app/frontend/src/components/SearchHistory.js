@@ -25,7 +25,7 @@ class SearchHistory extends Component {
   };
 
   fetchSearches() {
-    fetch('searches/')
+    fetch('/searches/')
       .then(response => {
         if (response.status > 400) {
           return this.setState(() => {
