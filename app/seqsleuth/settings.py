@@ -34,6 +34,7 @@ ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", default="*").split(" ")
 INSTALLED_APPS = [
     'searches.apps.SearchesConfig',
     'frontend',
+    'genomes',
     'rest_framework',
     'django_celery_results',
     'django.contrib.admin',
@@ -127,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

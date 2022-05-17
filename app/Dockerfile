@@ -47,5 +47,8 @@ COPY . .
 # copy compiled react app
 COPY --from=react-build /app/frontend/static/frontend/main.js ./frontend/static/frontend/
 
+# create dir for static files
+RUN mkdir /usr/src/app/staticfiles
+
 # run entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

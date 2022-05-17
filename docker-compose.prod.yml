@@ -2,18 +2,25 @@ version: '3.8'
 
 services:
 
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_data:/usr/src/app/staticfiles/
+    ports:
+      - 80:80
+    depends_on:
+      - app
+
   app:
     build: ./app
-    command: >
-      sh -c 'python manage.py buildgenomebank &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000'
-    ports:
-      - 8000:8000
-    env_file:
-      - ./.env.dev
+    command: gunicorn seqsleuth.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - genome_data:/usr/data/
+      - static_data:/usr/src/app/staticfiles/
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
     depends_on:
       - db
       - redis
@@ -22,7 +29,7 @@ services:
     build: ./app
     command: celery --app seqsleuth worker -l info
     env_file:
-      - ./.env.dev
+      - ./.env.prod
     volumes:
       - genome_data:/usr/data/
     depends_on:
@@ -33,10 +40,8 @@ services:
     image: postgres:14-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=app
+    env_file:
+      - ./.env.prod.db
 
   redis:
     image: redis:7-alpine
@@ -44,3 +49,4 @@ services:
 volumes:
   postgres_data:
   genome_data:
+  static_data:
