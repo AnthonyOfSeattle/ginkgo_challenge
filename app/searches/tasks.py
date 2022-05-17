@@ -23,7 +23,6 @@ def run_search(pk, sequence):
 
     # Create and save result if successful
     if search.status == Search.COMPLETE:
-        print(result_dict)
         result = Result(search=search,
                         **result_dict)
         result.save()
