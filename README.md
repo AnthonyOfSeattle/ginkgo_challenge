@@ -28,3 +28,21 @@ The project can then be torn down (including volumes) with the command.
 ```
 docker compose down -v
 ```
+## Overview
+
+If you would like to learn about how this application was implemented, please read below for
+brief overviews of inidividual components.
+
+### 1) React Frontend
+
+The frontend application for Seqsleuth is implemented entirely as a React application which
+is webpacked and served to the user. The SearchApp is comprised of two components, the SearchInput
+and the SearchHistory. Users interact directly with the SearchInput, which validates DNA sequences
+and POSTs to the backend server. The SearchHistory is continuously updated to query job statuses and
+results as they become available. Currently, sequence input is limited to well formated DNA sequences
+less than or equal to 200 characters long, the latter parameter being specified via the `props`.
+
+While searches in the development setup are much to fast to see the job tracking features,
+the SearchApp does allow as many searches to be inputed as the user desires before any of
+them are finished. The SearchHistory will monitor these searches and inform the user whether
+they have started and how long they have been running.
