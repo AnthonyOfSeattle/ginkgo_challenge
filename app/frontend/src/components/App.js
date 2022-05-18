@@ -6,7 +6,7 @@ import SearchApp from './SearchApp';
 
 function Banner() {
   return (
-    <Navbar bg='primary' variant='dark'>
+    <Navbar variant='light'>
       <Container>
         <Navbar.Brand>Seqsleuth</Navbar.Brand>
       </Container>

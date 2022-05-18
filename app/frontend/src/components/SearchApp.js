@@ -6,7 +6,7 @@ import SearchInput from './SearchInput';
 class SearchApp extends Component {
   render() {
     return (
-      <Container className="search-app">
+      <Container className='search-app'>
 	<SearchInput />
         <SearchHistory />
       </Container>

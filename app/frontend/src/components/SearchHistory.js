@@ -68,8 +68,11 @@ class SearchHistory extends Component {
 
     if (search_rows.length > 0) {
       return (
-        <Row className="search-history justify-content-md-center">
+        <Row className='search-history justify-content-md-center'>
 	  <Col md={9}>
+	    <Row className='search-history-header'>
+              <p>Search History</p>
+	    </Row>
             <Table responsive bordered hover>
 	      {this.getTableHeader()}
 	      <tbody>
