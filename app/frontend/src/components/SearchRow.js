@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class SearchRow extends Component {
   getFullStatus() {
-    const status_codes = {P : 'PENDING',
+    const status_codes = {S : 'SUBMITTED',
                           R : 'RUNNING',
                           C : 'COMPLETE',
                           E : 'ERROR'};
@@ -11,7 +11,7 @@ class SearchRow extends Component {
   };
 
   getStatusClass() {
-    const status_classes = {P : 'table-secondary',
+    const status_classes = {S : 'table-secondary',
                             R : 'table-primary',
                             C : 'table-success',
                             E : 'table-danger'};
@@ -22,7 +22,8 @@ class SearchRow extends Component {
   getSearchRuntime() {
     const started = new Date(this.props.search.started);
     var finished = new Date(Date.now());
-    if (this.getFullStatus() == 'COMPLETE') {
+    if (this.getFullStatus() == 'COMPLETE' ||
+          this.getFullStatus() == 'ERROR') {
       finished = new Date(this.props.search.finished);
     };
 

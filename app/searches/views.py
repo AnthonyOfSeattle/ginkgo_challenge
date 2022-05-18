@@ -3,6 +3,7 @@ from django.contrib.sessions.models import Session
 from searches.serializers import SearchSerializer, ResultSerializer
 from searches.tasks import run_search
 from django.http import Http404
+from django.utils import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -44,6 +45,7 @@ class SearchList(APIView):
                 run_search.delay(search.id, search.sequence)
             except run_search.OperationalError:
                 search.status = Search.ERROR
+                search.finished = timezone.now()
                 search.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
