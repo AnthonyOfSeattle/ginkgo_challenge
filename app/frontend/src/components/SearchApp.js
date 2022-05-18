@@ -7,7 +7,7 @@ class SearchApp extends Component {
   render() {
     return (
       <Container className='search-app'>
-	<SearchInput />
+	<SearchInput maxInputLength={this.props.maxInputLength} />
         <SearchHistory />
       </Container>
     );

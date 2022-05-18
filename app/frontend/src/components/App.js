@@ -18,8 +18,8 @@ class App extends Component {
   render() {
     return (
       <Container>
-	<Banner/>
-	<SearchApp/>
+	<Banner />
+	<SearchApp maxInputLength={200} />
       </Container>
     );
   };

@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 class SearchInput extends Component {
   constructor(props) {
     super(props);
-    
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -22,7 +22,15 @@ class SearchInput extends Component {
   };
 
   handleChange(e) {
-    this.setState({ sequence: e.target.value })
+    if (this.props.maxInputLength != null) {
+      this.setState({
+        sequence: e.target.value.slice(0, this.props.maxInputLength)
+      });
+    } else {
+      this.setState({
+        sequence: e.target.value
+      });
+    };
   };
 
   handleSubmit(e) {
