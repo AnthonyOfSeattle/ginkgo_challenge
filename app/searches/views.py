@@ -38,8 +38,16 @@ class SearchList(APIView):
             session_key = get_session_key(request.session)
             session = Session.objects.get(pk=session_key)
             search = serializer.save(session=session)
-            run_search.delay(search.id, search.sequence)
+
+            # Try to start search and register error if connection lost
+            try:
+                run_search.delay(search.id, search.sequence)
+            except run_search.OperationalError:
+                search.status = Search.ERROR
+                search.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
 
