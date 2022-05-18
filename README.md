@@ -46,3 +46,21 @@ While searches in the development setup are much to fast to see the job tracking
 the SearchApp does allow as many searches to be inputed as the user desires before any of
 them are finished. The SearchHistory will monitor these searches and inform the user whether
 they have started and how long they have been running.
+
+### 2) Django Backend
+
+The backend functionality of Seqsleuth is entirely handled through REST endpoints under the `/searches/`
+resource. When a user POSTs a sequence to `/searches/`, a new search is created and associated with the
+user session, and then a celery task is started to handle the search. Search information is returned to
+the user while the search runs. A GET request to `/searches/` returns all searches associated with the
+user session, along with any results.
+
+The actual searching is handled by the `genomes` module. A GenomeBank class allows querying a string through
+every cDNA sequence in its cache. The cache is seeded by issuing the following management command.
+
+```
+python manage.py buildgenomebank
+```
+
+Currently, the class looks for the environment variable `GENOME_LIST` to know which genomes to download.
+This variable is specified in the `.env.*` files.
