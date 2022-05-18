@@ -9,17 +9,21 @@
   font-size: 1.5rem !important;
 }
 
+.search-input .form-label {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+
+.search-input .form-control-invalid {
+  background-color: #f8d7da !important;;
+}
+
 .search-input-card {
   background: #F1F3FB;
   margin-bottom: 30px;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 1px 3px 0;
-}
-
-.search-input .form-label {
-  margin-bottom: 10px;
-  font-size: 1.25rem;
 }
 
 .search-history-header {

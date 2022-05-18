@@ -16,15 +16,21 @@ class SearchInput extends Component {
     };
   };
 
+  isSequenceValid() {
+    const validator = new RegExp('[^ATCG]');
+    return !validator.test(this.state.sequence);
+  };
+
   handleChange(e) {
     this.setState({ sequence: e.target.value })
   };
 
   handleSubmit(e) {
-    if (this.state.sequence.length > 0) {
+    if (this.state.sequence.length > 0 &&
+          this.isSequenceValid()) {
       this.postSearch();
+      this.setState({ sequence: '' });
     };
-    this.setState({ sequence: '' });
     e.preventDefault();
   };
 
@@ -48,9 +54,12 @@ class SearchInput extends Component {
               <Form.Label>Sequence Search</Form.Label>
               <Form.Control 
                 type='text' 
-                placeholder='Enter sequence' 
-                value = {this.state.sequence}
+                placeholder='Enter DNA sequence' 
+                value={this.state.sequence}
                 onChange={this.handleChange}
+	        className={this.isSequenceValid() ? 
+			     '.form-control-valid' : 
+			     'form-control-invalid'}
               />
             </Form.Group>
             <Button variant='primary' type='submit'>
