@@ -47,8 +47,12 @@ class GenomeBankTests(TestCase):
             self.assertEqual(len(os.listdir(temp_path)), 2)
             self.assertEqual(len(bank.get_genomes()), 2)
 
+        # reset
+        os.environ['GENOME_BANK_PATH'] = env_save
+
     def test_genome_iterates_through_coding_sequences(self):
         """Genome iterates through all coding sequences"""
+        env_save = os.environ.get('GENOME_BANK_PATH', '')
 
         with tempfile.TemporaryDirectory() as temp_path:
             os.environ['GENOME_BANK_PATH'] = temp_path
@@ -61,8 +65,12 @@ class GenomeBankTests(TestCase):
             protein_list = [protein for protein, sequence in genome.iter_coding_sequences()]
             self.assertEqual(len(protein_list), 802)
 
+        # reset
+        os.environ['GENOME_BANK_PATH'] = env_save
+
     def test_genome_bank_performs_queries(self):
-        """GenomeBank returns first protein matching query."""
+        """GenomeBank returns first protein matching query"""
+        env_save = os.environ.get('GENOME_BANK_PATH', '')
 
         with tempfile.TemporaryDirectory() as temp_path:
             os.environ['GENOME_BANK_PATH'] = temp_path
@@ -99,3 +107,6 @@ class GenomeBankTests(TestCase):
                      'start'   : -1,
                      'end'     : -1}
             self.assertEqual(result, truth)
+
+        # reset
+        os.environ['GENOME_BANK_PATH'] = env_save
